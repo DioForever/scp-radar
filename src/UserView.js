@@ -106,7 +106,7 @@ const postMark = () => {
     type: typeNum,
     id: id
   };
-  fetch("/markers", {
+  fetch("/api/markers", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
