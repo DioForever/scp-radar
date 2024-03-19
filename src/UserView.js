@@ -303,15 +303,19 @@ const postMark = () => {
               <MarkerF position={userLocation} name="Your Location" />
             )} */}
             {markersData.map((marker) => (
-              <MarkerF
-                key={marker.index}
-                position={marker.position}
-                name={marker.title}
-                color={marker.color}
-                type={marker.type}
-                price={marker.price}
-                date={marker.date}
-              />
+              (marker.title !== undefined) ? (
+                <MarkerF
+                  key={marker.index}
+                  position={marker.position}
+                  name={marker.title}
+                  color={marker.color}
+                  type={marker.type}
+                  price={marker.price}
+                  date={marker.date}
+                />
+              ) : (
+                <div key={marker.index}></div>
+              )
             ))}
           </GoogleMap>
         </LoadScript>
