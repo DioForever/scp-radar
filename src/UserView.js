@@ -178,7 +178,7 @@ const postMark = () => {
 
 
       // Check if current time is equal to timer
-      if (currentTime.getTime() >= timer.getTime() && userLocation != null && id != "" && userLocation.lat != null) {
+      if (currentTime.getTime() >= timer.getTime()-10 && userLocation != null && id != "" && userLocation.lat != null) {
         // Set timer to the next minute
         const nextMinute = new Date(timer.getTime());
         nextMinute.setMinutes(nextMinute.getMinutes() + 1);
