@@ -1,0 +1,233 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #1f1f1f;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.user-section {
+  margin-bottom: 20px;
+}
+
+.user-section label {
+  font-size: 1.2rem;
+}
+.user-section div {
+  margin-top: 10px;
+}
+.user-section input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+  margin-top: 5px;
+  background-color: #424242;
+  color: #ffffff;
+}
+
+.timer-section {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.timer-text{
+  text-align: center;
+}
+
+.map-section {
+  height: 400px;
+  background-color: #424242;
+  border-radius: 10px;
+  border: 1px solid black; /* Add border */
+}
+.timerBox {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  border-radius: 5px;
+  justify-content: center; /* Centers the content horizontally */
+}
+
+.timer {
+  color: black;
+  background-color: white;
+  width: 30px;
+  border-radius: 4px;
+  margin: 5px;
+}
+
+.static-svg {
+  color: #ff0022; /* Change this to the desired color */
+}
+
+
+.whole {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.radar {
+  width: 80vw;
+}
+
+.admin{
+}
+
+.markList {
+  margin-top: 20px;
+}
+
+.markList h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.markListInner {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.markListInner th,
+.markListInner td {
+  border: 1px solid #dddddd;
+  padding: 8px;
+  text-align: left;
+}
+
+
+.svg-container {
+  width: 50px; /* Adjust as needed */
+  height: 50px; /* Adjust as needed */
+  margin: 0 auto;
+}
+
+
+.maker {
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: #424242;
+}
+
+.maker h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.maker label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.maker input[type="text"],
+.maker input[type="number"],
+.maker select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid rgb(14, 14, 14)757;
+  border-radius: 4px;
+  width: 10vw;
+  
+}
+
+.maker button {
+  background-color: #4CAF50;
+  color: rgb(49, 49, 49);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.maker button:hover {
+  background-color: #45a049;
+}
+
+.maker div {
+  margin-bottom: 15px;
+}
+
+
+.split{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.split div {
+  width: 45%;
+}
+
+.price {
+  position: relative;
+  display: inline-block;
+  padding: 5px;
+  background-color: gold;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+
+-notifications {
+  position: relative;
+  display: inline-block;
+  padding: 5px;
+  background-color: rgb(48, 48, 48);
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.notification {
+  position: relative;
+  display: inline-block;
+  padding: 5px;
+  background-color: rgb(46, 46, 46);
+  border: rgb(136, 39, 39) 5px solid;
+  margin: 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+}
+
+.notificationAdmin {
+  position: relative;
+  display: inline-block;
+  padding: 5px;
+  background-color: rgb(46, 46, 46);
+  border: rgb(136, 39, 39) 5px solid;
+  margin: 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.notification h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.lists{
+  
+}
