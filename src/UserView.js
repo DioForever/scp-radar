@@ -75,14 +75,14 @@ function UserView() {
 
   // We make a function to fetch data whenever we need to
 const fetchMarks= () => {
-  fetch("/markers")
+  fetch("/api/markers")
     .then((response) => response.json())
     .then((data) => {
       setMarkersData(data);
     });
 };
 const fetchTimer= () => {
-  fetch("/timer")
+  fetch("/api/timer")
     .then((response) => response.json())
     .then((data) => {
       const dateObject = new Date(data);
@@ -91,7 +91,7 @@ const fetchTimer= () => {
     });
 };
 const fetchNotifications= () => {
-  fetch("/notifications")
+  fetch("/api/notifications")
     .then((response) => response.json())
     .then((data) => {
       setNotification(data);

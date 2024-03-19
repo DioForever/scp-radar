@@ -68,7 +68,7 @@ function AdminView() {
 
   // We make a function to fetch data whenever we need to
 const fetchMarks= () => {
-  fetch("/markers")
+  fetch("/api/markers")
     .then((response) => response.json())
     .then((data) => {
       setMarkersData(data);
@@ -76,7 +76,7 @@ const fetchMarks= () => {
     });
 };
 const fetchTimer= () => {
-  fetch("/timer")
+  fetch("/api/timer")
     .then((response) => response.json())
     .then((data) => {
       const dateObject = new Date(data);
@@ -85,7 +85,7 @@ const fetchTimer= () => {
     });
 };
 const fetchNotifications= () => {
-  fetch("/notifications")
+  fetch("/api/notifications")
     .then((response) => response.json())
     .then((data) => {
       setNotification(data);
@@ -124,7 +124,7 @@ const postMark = () => {
 };
 
 const removeMark = (id) => {
-  fetch(`/markers/${id}`, {
+  fetch(`/api/markers/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json"
@@ -151,7 +151,7 @@ const postNotification = () => {
     title: notificationTitle,
     description: notificationDescription
   };
-  fetch("/notifications", {
+  fetch("/api/notifications", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -170,7 +170,7 @@ const postNotification = () => {
 };
 
 const removeNotification = (id) => {
-  fetch(`/notifications/${id}`, {
+  fetch(`/api/notifications/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json"
