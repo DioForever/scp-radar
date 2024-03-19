@@ -3,7 +3,6 @@ import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/ap
 import Cookies from 'js-cookie';
 import './App.css';
 import { v4 as uuidv4 } from 'uuid';
-import proxy from './proxy';
 
 const mapContainerStyle = {
   width: '100%',
@@ -76,14 +75,14 @@ function UserView() {
 
   // We make a function to fetch data whenever we need to
 const fetchMarks= () => {
-  fetch(proxy+"/markers")
+  fetch("/markers")
     .then((response) => response.json())
     .then((data) => {
       setMarkersData(data);
     });
 };
 const fetchTimer= () => {
-  fetch(proxy+"/timer")
+  fetch("/timer")
     .then((response) => response.json())
     .then((data) => {
       const dateObject = new Date(data);
@@ -92,7 +91,7 @@ const fetchTimer= () => {
     });
 };
 const fetchNotifications= () => {
-  fetch(proxy+"/notifications")
+  fetch("/notifications")
     .then((response) => response.json())
     .then((data) => {
       setNotification(data);
@@ -107,7 +106,7 @@ const postMark = () => {
     type: typeNum,
     id: id
   };
-  fetch(proxy+"/markers", {
+  fetch("/markers", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

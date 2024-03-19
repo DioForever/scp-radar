@@ -1,0 +1,6 @@
+/markers http://130.162.220.88:8000/markers
+/notifications http://130.162.220.88:8000/notifications
+/timer http://130.162.220.88:8000/timer
+/notifications http://130.162.220.88:8000/notifications
+/markers/ http://130.162.220.88:8000/markers/
+/notifications/ http://130.162.220.88:8000/notifications/

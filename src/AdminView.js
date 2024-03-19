@@ -3,7 +3,6 @@ import { GoogleMap, LoadScript, Marker, InfoWindow } from '@react-google-maps/ap
 import Cookies from 'js-cookie';
 import './App.css';
 import { v4 as uuidv4 } from 'uuid';
-import proxy from './proxy';
 
 const mapContainerStyle = {
   width: '100%',
@@ -69,7 +68,7 @@ function AdminView() {
 
   // We make a function to fetch data whenever we need to
 const fetchMarks= () => {
-  fetch(proxy+"/markers")
+  fetch("/markers")
     .then((response) => response.json())
     .then((data) => {
       setMarkersData(data);
@@ -77,7 +76,7 @@ const fetchMarks= () => {
     });
 };
 const fetchTimer= () => {
-  fetch(proxy+"/timer")
+  fetch("/timer")
     .then((response) => response.json())
     .then((data) => {
       const dateObject = new Date(data);
@@ -86,7 +85,7 @@ const fetchTimer= () => {
     });
 };
 const fetchNotifications= () => {
-  fetch(proxy+"/notifications")
+  fetch("/notifications")
     .then((response) => response.json())
     .then((data) => {
       setNotification(data);
@@ -106,7 +105,7 @@ const postMark = () => {
   if(typeNum === 0) {
     markData.price = price;
   }
-  fetch(proxy+"/markers", {
+  fetch("/markers", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -125,7 +124,7 @@ const postMark = () => {
 };
 
 const removeMark = (id) => {
-  fetch(proxy+`/markers/${id}`, {
+  fetch(`/markers/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json"
@@ -152,7 +151,7 @@ const postNotification = () => {
     title: notificationTitle,
     description: notificationDescription
   };
-  fetch(proxy+"/notifications", {
+  fetch("/notifications", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -171,7 +170,7 @@ const postNotification = () => {
 };
 
 const removeNotification = (id) => {
-  fetch(proxy+`/notifications/${id}`, {
+  fetch(`/notifications/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json"
