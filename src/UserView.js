@@ -178,7 +178,7 @@ const postMark = () => {
 
 
       // Check if current time is equal to timer
-      if (parseInt((timer.getTime() - time.getTime()) / 1000) <= 0  && userLocation != null && id != "" && userLocation.lat != null) {
+      if (parseInt((timer.getTime() - time.getTime()) / 1000) <= 0) {
         // Set timer to the next minute
         console.log("Timer done");
         if (navigator.geolocation) {
