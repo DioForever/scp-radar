@@ -178,11 +178,28 @@ const postMark = () => {
 
 
       // Check if current time is equal to timer
-      if (currentTime.getTime() >= timer.getTime() && userLocation != null && id != "" && userLocation.lat != null) {
+      if (parseInt((timer.getTime() - time.getTime()) / 1000) <= 0  && userLocation != null && id != "" && userLocation.lat != null) {
         // Set timer to the next minute
+        console.log("Timer done");
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              setUserLocation({
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+              });
+            },
+            (error) => {
+              console.error('Error getting user location:', error);
+            }
+          );
+        } else {
+          console.error('Geolocation is not supported by this browser.');
+        }
         const nextMinute = new Date(timer.getTime());
         nextMinute.setMinutes(nextMinute.getMinutes() + 1);
         setTimer(nextMinute);
+        
 
         postMark();
 
