@@ -172,45 +172,56 @@ const postMark = () => {
       }
     }
 
-    const interval = setInterval(() => {
-      const currentTime = new Date(Date.now());
-      setTime(currentTime);
-      console.log("Time left: " + parseInt((timer.getTime() - time.getTime()) / 1000));
+  // Start the interval
+  const interval = setInterval(() => {
+    // Update the current time
+    const currentTime = new Date();
+    setTime(currentTime);
 
-      // Check if current time is equal to timer
-      if (parseInt((timer.getTime() - time.getTime()) / 1000) <= 0) {
-        // Set timer to the next minute
-        console.log("Timer done");
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(
-            (position) => {
-              setUserLocation({
-                lat: position.coords.latitude,
-                lng: position.coords.longitude,
-              });
-            },
-            (error) => {
-              console.error('Error getting user location:', error);
-            }
-          );
-        } else {
-          console.error('Geolocation is not supported by this browser.');
-        }
-        const nextMinute = new Date(timer.getTime());
-        nextMinute.setMinutes(nextMinute.getMinutes() + 1);
-        setTimer(nextMinute);
-        
+    // Calculate time difference
+    const timeDiffSeconds = Math.round((timer.getTime() - currentTime.getTime()) / 1000);
+    console.log("Time left: " + timeDiffSeconds);
 
-        postMark();
+    // Check if time's up
+    if (timeDiffSeconds <= 0) {
+      clearInterval(interval); // Stop the interval
 
-        fetchMarks();
-        fetchTimer();
-        fetchNotifications();
+      // Handle what to do when time's up
+      console.log("Timer done");
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            setUserLocation({
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            });
+          },
+          (error) => {
+            console.error('Error getting user location:', error);
+          }
+        );
+      } else {
+        console.error('Geolocation is not supported by this browser.');
       }
-    }, 1000);
 
-    return () => clearInterval(interval);
-  }, [timer]); // Added timer as a dependency for useEffect
+      // Update the timer to the next minute
+      const nextMinute = new Date(timer.getTime());
+      nextMinute.setMinutes(nextMinute.getMinutes() + 1);
+      setTimer(nextMinute);
+
+      // Additional actions
+      postMark();
+      fetchMarks();
+      fetchTimer();
+      fetchNotifications();
+    }
+  }, 1000);
+
+  // Clean up the interval on component unmount
+  return () => clearInterval(interval);
+}, [timer]); // Make sure to include any dependencies like timer
+
+
 
   useEffect(() => {
     if (navigator.geolocation) {
