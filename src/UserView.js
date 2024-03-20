@@ -175,7 +175,7 @@ const postMark = () => {
     const interval = setInterval(() => {
       const currentTime = new Date();
       setTime(currentTime);
-
+      console.log("Time left: " + parseInt((timer.getTime() - time.getTime()) / 1000));
 
       // Check if current time is equal to timer
       if (parseInt((timer.getTime() - time.getTime()) / 1000) <= 0) {
