@@ -173,7 +173,7 @@ const postMark = () => {
     }
 
     const interval = setInterval(() => {
-      const currentTime = new Date();
+      const currentTime = new Date(Date.now());
       setTime(currentTime);
       console.log("Time left: " + parseInt((timer.getTime() - time.getTime()) / 1000));
 
