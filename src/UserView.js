@@ -191,6 +191,7 @@ const postMark = () => {
     // Check if time's up
     if (timeDiffSeconds <= 10 && sentPos === false) {
       clearInterval(interval); // Stop the interval
+      if(userLocation === undefined || userLocation === null){ return; }
       setSentPos(true);
 
       // Handle what to do when time's up
