@@ -183,6 +183,9 @@ const postMark = () => {
     const timeDiffSeconds = Math.round((timer.getTime() - currentTime.getTime()) / 1000);
     console.log("Time left: " + timeDiffSeconds);
 
+    if(timeDiffSeconds <= 0){
+      fetchTimer();
+    }
     // Check if time's up
     if (timeDiffSeconds <= 10 && sentPos === false) {
       clearInterval(interval); // Stop the interval
