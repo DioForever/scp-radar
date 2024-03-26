@@ -62,6 +62,7 @@ function UserView() {
 
   const [time, setTime] = useState(new Date());
   const [timer, setTimer] = useState(new Date());
+  const [sentPos, setSentPos] = useState(false);
   const [map, setMap] = useState(null);
   
   const [markersData, setMarkersData] = useState([
@@ -183,8 +184,9 @@ const postMark = () => {
     console.log("Time left: " + timeDiffSeconds);
 
     // Check if time's up
-    if (timeDiffSeconds <= 0) {
+    if (timeDiffSeconds <= 10 && sentPos === false) {
       clearInterval(interval); // Stop the interval
+      setSentPos(true);
 
       // Handle what to do when time's up
       console.log("Timer done");
