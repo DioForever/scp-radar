@@ -79,14 +79,14 @@ function UserView() {
 
   // We make a function to fetch data whenever we need to
 const fetchMarks= () => {
-  fetch("http://130.162.220.88:8000/markers")
+  fetch("/api/markers")
     .then((response) => response.json())
     .then((data) => {
       setMarkersData(data);
     });
 };
 const fetchTimer= () => {
-  fetch("http://130.162.220.88:8000/timer")
+  fetch("/api/timer")
     .then((response) => response.json())
     .then((data) => {
       const dateObject = new Date(data);
@@ -95,7 +95,7 @@ const fetchTimer= () => {
     });
 };
 const fetchNotifications= () => {
-  fetch("http://130.162.220.88:8000/notifications")
+  fetch("/api/notifications")
     .then((response) => response.json())
     .then((data) => {
       setNotification(data);
@@ -112,7 +112,7 @@ const postMark = () => {
     type: typeNum,
     id: id
   };
-  fetch("http://130.162.220.88:8000/markers", {
+  fetch("/api/markers", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
