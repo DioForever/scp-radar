@@ -58,11 +58,14 @@ function UserView() {
 
   const [initFetch, setInitFetch] = useState(false);
   const [initPos, setInitPos] = useState(false);
+
   
 
   const [time, setTime] = useState(new Date());
   const [timer, setTimer] = useState(new Date());
   const [sentPos, setSentPos] = useState(false);
+  const [getMarks, setGetMarks] = useState(false);
+
   const [map, setMap] = useState(null);
   
   const [markersData, setMarkersData] = useState([
@@ -194,9 +197,13 @@ const postMark = () => {
       if(userLocation === undefined || userLocation === null){
          return;
         }
-        clearInterval(interval);
+      clearInterval(interval);
+      postMark();
       setSentPos(true);
-
+      
+    }
+    if(timeDiffSeconds<= 5 && getMarks === false){
+      clearInterval(interval);
       // Handle what to do when time's up
       console.log("Timer done");
       if (navigator.geolocation) {
@@ -210,10 +217,13 @@ const postMark = () => {
           (error) => {
             console.error('Error getting user location:', error);
           }
+
         );
+        setGetMarks(true);
       } else {
         console.error('Geolocation is not supported by this browser.');
       }
+      if(timeDiffSeconds > 5) {setGetMarks(false);}
 
       // Update the timer to the next minute
       const nextMinute = new Date(timer.getTime());
