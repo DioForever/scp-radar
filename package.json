@@ -1,6 +1,7 @@
 {
   "name": "scp",
   "version": "0.1.0",
+  "proxy": "http://130.162.220.88:8000",
   "private": true,
   "dependencies": {
     "@react-google-maps/api": "^2.19.3",

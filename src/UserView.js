@@ -79,14 +79,14 @@ function UserView() {
 
   // We make a function to fetch data whenever we need to
 const fetchMarks= () => {
-  fetch("/api/markers")
+  fetch("http://130.162.220.88:8000/markers")
     .then((response) => response.json())
     .then((data) => {
       setMarkersData(data);
     });
 };
 const fetchTimer= () => {
-  fetch("/api/timer")
+  fetch("http://130.162.220.88:8000/timer")
     .then((response) => response.json())
     .then((data) => {
       const dateObject = new Date(data);
@@ -95,7 +95,7 @@ const fetchTimer= () => {
     });
 };
 const fetchNotifications= () => {
-  fetch("/api/notifications")
+  fetch("http://130.162.220.88:8000/notifications")
     .then((response) => response.json())
     .then((data) => {
       setNotification(data);
@@ -103,14 +103,16 @@ const fetchNotifications= () => {
 }
 
 const postMark = () => {
+  if(userLocation === undefined || userLocation === null) return;
   const typeNum = (userType === "Monster" ? 0 : 1);
+  
   const markData = {
     position: userLocation,
     title: userName,
     type: typeNum,
     id: id
   };
-  fetch("/api/markers", {
+  fetch("http://130.162.220.88:8000/markers", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -121,12 +123,18 @@ const postMark = () => {
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-    return response.json();
+    return response.text(); // Read response as text
   })
+  // .then((text) => {
+  //   console.log('Response:', text); // Log the response
+  //   return;
+    // return JSON.parse(text); // Parse response as JSON
+  // })
   .catch((error) => {
     console.error('Error:', error);
   });
 };
+
   useEffect(() => {
     Cookies.set('name', userName, { expires: 7 });
   }, [userName])
@@ -157,7 +165,7 @@ const postMark = () => {
       fetchNotifications();
     }
 
-    if(!initPos && userLocation != null && id != "" && userLocation.lat != null){
+    if(!initPos && userLocation != null && id !== "" && userLocation.lat != null){
       if (navigator.geolocation) {
         console.log("Init pos done fetch");
         setInitPos(true);
@@ -179,6 +187,7 @@ const postMark = () => {
   // Start the interval
   const interval = setInterval(() => {
     // Update the current time
+    // clearInterval(interval);
     const currentTime = new Date();
     setTime(currentTime);
 
@@ -186,59 +195,73 @@ const postMark = () => {
     const timeDiffSeconds = Math.round((timer.getTime() - currentTime.getTime()) / 1000);
     console.log("Time left: " + timeDiffSeconds);
 
-    if(timeDiffSeconds <= 0){
+    if(timeDiffSeconds <= 0 || timeDiffSeconds > 600){
+      setSentPos(false);
+      setGetMarks(false);
       fetchTimer();
     }
-    if(timeDiffSeconds >= 10){ setSentPos(false);}
+    if(timeDiffSeconds > 9) { setGetMarks(false);}
+    if(timeDiffSeconds > 15){ setSentPos(false); console.log("Sent pos false");}
 
-    // Check if time's up
-    if (timeDiffSeconds <= 10 && sentPos === false) {
-      // clearInterval(interval); // Stop the interval
-      if(userLocation === undefined || userLocation === null){
-         return;
-        }
-      clearInterval(interval);
-      postMark();
-      setSentPos(true);
-      
-    }
-    if(timeDiffSeconds<= 5 && getMarks === false){
-      clearInterval(interval);
-      // Handle what to do when time's up
-      console.log("Timer done");
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            setUserLocation({
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-            });
-          },
-          (error) => {
-            console.error('Error getting user location:', error);
-          }
+    console.log("status of sentPos: " + sentPos);
+    console.log("status of getMarks: " + getMarks);
 
-        );
-        setGetMarks(true);
-      } else {
-        console.error('Geolocation is not supported by this browser.');
+    try {
+      // Check if time's up
+      if (timeDiffSeconds <= 15 && sentPos === false) {
+        // clearInterval(interval); // Stop the interval{
+          setSentPos(true);
+          console.log("Posting position");
+          postMark();
+          // clearInterval(interval);
+          // () => clearInterval(interval);
       }
-      if(timeDiffSeconds > 5) {setGetMarks(false);}
 
-      // Update the timer to the next minute
-      const nextMinute = new Date(timer.getTime());
-      nextMinute.setMinutes(nextMinute.getMinutes() + 1);
-      setTimer(nextMinute);
+      if(timeDiffSeconds<= 9 && getMarks === false){
+        // Handle what to do when time's up
+        console.log("Timer done");
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              setUserLocation({
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+              });
+            },
+            (error) => {
+              console.error('Error getting user location:', error);
+            }
 
-      // Additional actions
-      postMark();
-      fetchMarks();
-      fetchTimer();
-      fetchNotifications();
+          );
+        } else {
+          console.error('Geolocation is not supported by this browser.');
+        }
+        
+        setGetMarks(true);
+        
+        // Update the timer to the next minute
+        const nextMinute = new Date(timer.getTime());
+        nextMinute.setMinutes(nextMinute.getMinutes() + 1);
+        setTimer(nextMinute);
+        
+        // Additional actions
+        postMark();
+        fetchMarks();
+        fetchTimer();
+        fetchNotifications();
+        
+        // clearInterval(interval);
+      }
+    } catch (error) {
+      console.error('Error getting user location:', error);
+      // clearInterval(interval);
+      return () => clearInterval(interval);
     }
+    
   }, 1000);
 
   // Clean up the interval on component unmount
+  // clearInterval(interval);
   return () => clearInterval(interval);
 }, [timer]); // Make sure to include any dependencies like timer
 
