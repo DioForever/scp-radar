@@ -190,10 +190,11 @@ const postMark = () => {
 
     // Check if time's up
     if (timeDiffSeconds <= 10 && sentPos === false) {
-      clearInterval(interval); // Stop the interval
+      // clearInterval(interval); // Stop the interval
       if(userLocation === undefined || userLocation === null){
-         return () => clearInterval(interval); 
+         return;
         }
+        clearInterval(interval);
       setSentPos(true);
 
       // Handle what to do when time's up
@@ -215,9 +216,9 @@ const postMark = () => {
       }
 
       // Update the timer to the next minute
-      const nextMinute = new Date(timer.getTime());
-      nextMinute.setMinutes(nextMinute.getMinutes() + 1);
-      setTimer(nextMinute);
+      // const nextMinute = new Date(timer.getTime());
+      // nextMinute.setMinutes(nextMinute.getMinutes() + 1);
+      // setTimer(nextMinute);
 
       // Additional actions
       postMark();
