@@ -216,9 +216,9 @@ const postMark = () => {
       }
 
       // Update the timer to the next minute
-      // const nextMinute = new Date(timer.getTime());
-      // nextMinute.setMinutes(nextMinute.getMinutes() + 1);
-      // setTimer(nextMinute);
+      const nextMinute = new Date(timer.getTime());
+      nextMinute.setMinutes(nextMinute.getMinutes() + 1);
+      setTimer(nextMinute);
 
       // Additional actions
       postMark();
