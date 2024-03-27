@@ -186,7 +186,7 @@ const postMark = () => {
     if(timeDiffSeconds <= 0){
       fetchTimer();
     }
-    if(timeDiffSeconds >= 11){ setSentPos(false);}
+    if(timeDiffSeconds >= 10){ setSentPos(false);}
 
     // Check if time's up
     if (timeDiffSeconds <= 10 && sentPos === false) {
