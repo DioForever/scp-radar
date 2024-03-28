@@ -443,7 +443,7 @@ const postMark = () => {
         >
         </Marker>
          : <div></div>} 
-        {(date !== undefined) ? <Marker
+        {(date !== undefined && type === 1) ? <Marker
           position={position}
           label={"AT: "+dateLabel}
           draggable={false}
